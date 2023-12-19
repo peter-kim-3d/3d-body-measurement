@@ -5,9 +5,13 @@ import pyvista as pv
 def load_obj_file(file_path):
     return trimesh.load(file_path)
 
-def extract_contour(mesh, y_value, tolerance=0.01):
+def extract_contour(mesh, left_point, right_point, tolerance=0.01):
+    # Extract vertices between the left and right points, considering a tolerance around the Y-value
+    y_value = np.mean([left_point[1], right_point[1]])
+    x_min, x_max = sorted([left_point[0], right_point[0]])
     vertices = mesh.vertices
-    return vertices[np.abs(vertices[:, 1] - y_value) < tolerance]
+    return vertices[(np.abs(vertices[:, 1] - y_value) < tolerance) &
+                    (vertices[:, 0] >= x_min) & (vertices[:, 0] <= x_max)]
 
 def sort_vertices(vertices, center):
     # This is a simplified version. For complex models, more sophisticated methods might be required.
@@ -23,18 +27,11 @@ obj_file_path = 'result_test_512.obj'
 mesh = load_obj_file(obj_file_path)
 
 # Define your wrist points (left and right)
-## -0.207575, 0.182487, 0.0553705
-## 0.070312, 0.205991, 0.00683572
-# left_point = np.array([-0.0609601, 0.874205, 0.103864])  # Replace with your actual left point
-# right_point = np.array([-0.0609601, -0.793804, 0.103864])  # Replace with your actual right point
-left_point = np.array([-0.207575, 0.182487, 0.0553705])  # Replace with your actual left point
-right_point = np.array([0.070312, 0.205991, 0.00683572])  # Replace with your actual right point
-
-# Determine the Y-value for the cross-section
-y_value = np.mean([left_point[1], right_point[1]])
+left_point = np.array([-0.21978, 0.182487, 0.0553705])  # Replace with your actual left point
+right_point = np.array([0.071312, 0.205991, 0.00683572])  # Replace with your actual right point
 
 # Extract and sort the contour vertices
-contour_vertices = extract_contour(mesh, y_value)
+contour_vertices = extract_contour(mesh, left_point, right_point)
 wrist_center = np.mean(contour_vertices, axis=0)
 sorted_contour = sort_vertices(contour_vertices, wrist_center)
 
