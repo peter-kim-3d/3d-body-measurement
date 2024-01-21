@@ -5,7 +5,7 @@ import pyvista as pv
 def load_obj_file(file_path):
     return trimesh.load(file_path)
 
-def extract_head_contour(mesh, y_value, tolerance=0.005):
+def extract_neck_contour(mesh, y_value, tolerance=0.005):
     vertices = mesh.vertices
     return vertices[np.abs(vertices[:, 1] - y_value) < tolerance]
 
@@ -18,25 +18,21 @@ def calculate_circumference(vertices):
     return np.sum(distances)
 
 # Load the OBJ file
-obj_file_path = 'sub04.obj'
+obj_file_path = 'result_test_512.obj'
 mesh = load_obj_file(obj_file_path)
 
 # Define a point on the head and determine the Y-value for the cross-section
-# known_point = np.array([0.0078125, 0.6953125, 0])  # Replace with your actual known point 0. 얼굴
-# known_point = np.array([-0.0078125, 0.4921875, 0])  # Replace with your actual known point 1. 어깨 중심
-# known_point = np.array([-0.171875, 0.4921875, 0])  # Replace with your actual known point 2. 어깨 좌측
-# known_point = np.array([-0.171875, 0.4921875, 0])  # Replace with your actual known point 3. 팔 좌측
-known_point = np.array([-0.375, 0.03125, 0])  # Replace with your actual known point 4. 팔 좌측
+known_point = np.array([-0.0771647, 0.656549, 0.0430382])  # Replace with your actual known point
 y_value = known_point[1]  # or z, depending on your model's orientation
 
 # Extract and sort the contour vertices
-contour_vertices = extract_head_contour(mesh, y_value)
+contour_vertices = extract_neck_contour(mesh, y_value)
 head_center = np.mean(contour_vertices, axis=0)
 sorted_contour = sort_vertices(contour_vertices, head_center)
 
 # Calculate the head circumference
 head_circumference = calculate_circumference(sorted_contour)
-print("Head Circumference:", head_circumference)
+print("Neck Circumference:", head_circumference)
 
 # Optional: Visualize
 # Convert Trimesh object to PyVista mesh for rendering
