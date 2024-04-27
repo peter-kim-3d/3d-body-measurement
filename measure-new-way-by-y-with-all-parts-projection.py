@@ -66,7 +66,7 @@ body_parts = {
 }
 
 # Load the OBJ file
-obj_file_path = 'generated/sub07.obj'
+obj_file_path = 'generated/sub04.obj'
 mesh = load_obj_file(obj_file_path)
 
 # Visualization setup

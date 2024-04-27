@@ -17,13 +17,13 @@ def extract_hip_contour(mesh, y_value, tolerance=0.005):
     gaps = np.diff(sorted_vertices[:, 0]) > x_threshold
     gap_indices = np.where(gaps)[0]
     
-    # if len(gap_indices) > 1:  # Assuming there are gaps on both sides of the hip
-    #     # Isolate the hip vertices
-    hip_vertices = sorted_vertices[gap_indices[0]+1:gap_indices[1]]
-    return hip_vertices
-    # else:
-    #     # No clear gaps detected, return all potential vertices
-    #     return potential_hip_vertices
+    if len(gap_indices) > 1:  # Assuming there are gaps on both sides of the hip
+        # Isolate the hip vertices
+        hip_vertices = sorted_vertices[gap_indices[0]+1:gap_indices[1]]
+        return hip_vertices
+    else:
+        # No clear gaps detected, return all potential vertices
+        return potential_hip_vertices
 
 def sort_vertices(vertices, center):
     angles = np.arctan2(vertices[:, 2] - center[2], vertices[:, 0] - center[0])

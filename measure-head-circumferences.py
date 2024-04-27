@@ -26,6 +26,7 @@ mesh = load_obj_file(obj_file_path)
 # known_point = np.array([-0.0078125, 0.4921875, 0])  # Replace with your actual known point 1. 어깨 중심
 # known_point = np.array([-0.171875, 0.4921875, 0])  # Replace with your actual known point 2. 어깨 좌측
 # known_point = np.array([-0.171875, 0.4921875, 0])  # Replace with your actual known point 3. 팔 좌측
+# known_point = np.array([-0.375, 0.03125, 0])  # Replace with your actual known point 4. 팔 좌측
 known_point = np.array([-0.375, 0.03125, 0])  # Replace with your actual known point 4. 팔 좌측
 y_value = known_point[1]  # or z, depending on your model's orientation
 

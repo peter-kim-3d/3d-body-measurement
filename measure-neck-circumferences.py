@@ -21,7 +21,7 @@ def calculate_circumference(vertices):
 obj_file_path = 'result_test_512.obj'
 mesh = load_obj_file(obj_file_path)
 
-# Define a point on the head and determine the Y-value for the cross-section
+# Define a point on the neck and determine the Y-value for the cross-section
 known_point = np.array([-0.0771647, 0.656549, 0.0430382])  # Replace with your actual known point
 y_value = known_point[1]  # or z, depending on your model's orientation
 
