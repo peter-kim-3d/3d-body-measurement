@@ -16,6 +16,6 @@ jobs:
         run: echo "Deploying to ${{ github.job.environment.name }} environment"
 
       - name: Use secret
-        run: echo "Using secret(${{ secrets.DATABASE_PASSWORD }}) in action"
+        run: echo "Using secret(${{ secrets.DATABASE_PASSWORD }}), var(${{ variables.VAR }}) in action"
         env:
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
