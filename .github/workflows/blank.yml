@@ -1,0 +1,24 @@
+name: Deploy Application
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    environment: 
+      name: e1
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup environment
+        run: echo "Deploying to ${{ github.job.environment.name }} environment"
+
+      - name: Use secret
+        run: echo "Using secret in action"
+        env:
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
